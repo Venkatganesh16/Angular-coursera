@@ -7,6 +7,10 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatButton, MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FormsModule } from '@angular/forms'; 
 import { FlexLayoutModule } from '@angular/flex-layout'; 
 
 import { AppComponent } from './app.component';
@@ -44,13 +48,17 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
     BrowserModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
+    MatFormFieldModule, 
+    MatInputModule,
+    MatCheckboxModule,
     AppRoutingModule,
     MatToolbarModule,
     MatListModule,
     MatGridListModule,
     MatCardModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    FormsModule 
   ],
   providers: [
     DishService,

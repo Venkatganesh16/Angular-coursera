@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { baseURL } from '../shared/baseurl';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -29,5 +30,4 @@ export class DishService {
     return this.getDishes().pipe(map(dishes => dishes.map(dish => dish.id)));
   }
   
-
 }

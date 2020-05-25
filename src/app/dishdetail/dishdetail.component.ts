@@ -15,16 +15,18 @@ import { Comment } from '../shared/comment';
   styleUrls: ['./dishdetail.component.scss']
 })
 export class DishdetailComponent implements OnInit {
-	
-  @ViewChild('fform') commentsFormFormDirective;
- 
+  
   dish: Dish;
   errMess: string;
   dishIds: string[];
   prev: string;
   next: string;
+
+  @ViewChild('fform') commentsFormFormDirective;
+ 
   commentsForm: FormGroup;
   comments: Comment;
+  dishcopy: Dish;
  
   formErrors = {
     'author': '',
@@ -58,7 +60,7 @@ export class DishdetailComponent implements OnInit {
       .subscribe(dishIds => this.dishIds = dishIds);
 
     this.route.params.pipe(switchMap((params: Params) => this.dishservice.getDish(params['id'])))
-      .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id); },
+      .subscribe(dish => { this.dish = dish; this.dishcopy = dish; this.setPrevNext(dish.id); },
         errmess => this.errMess = <any> errmess);
 	
   }
@@ -113,8 +115,12 @@ export class DishdetailComponent implements OnInit {
     
     //Add to the comments list
 	  this.comments.date = Date.now().toString();
-	  this.dish.comments.push(this.comments);
-	
+	  this.dishcopy.comments.push(this.comments);
+    this.dishservice.putDish(this.dishcopy)
+      .subscribe(dish => {
+        this.dish = dish; this.dishcopy = dish;
+      },
+      errmess => { this.dish = null; this.dishcopy = null; this.errMess = <any>errmess;});
     //Reset Form
     this.commentsFormFormDirective.resetForm();
 	  this.commentsForm.reset({
